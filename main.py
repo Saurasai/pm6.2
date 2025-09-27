@@ -13,10 +13,23 @@ import requests
 from passlib.context import CryptContext
 from cryptography.fernet import Fernet
 import json
-try:
-    import imghdr
-except ImportError:
-    import imghdr2 as imghdr
+
+
+
+from fastapi.middleware.cors import CORSMiddleware
+
+# ... (app = FastAPI(...))
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://post-muse-v2.streamlit.app/",  # e.g., post-muse-dashboard.onrender.com
+        "http://localhost:8501"  # For local testing
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 import os
 from dotenv import load_dotenv
@@ -364,3 +377,4 @@ async def get_user(user_id: str = Depends(get_current_user)):
         return {"email": row[0], "tier": row[1], "is_admin": bool(row[2])}
 
     raise HTTPException(404, "User not found")
+
