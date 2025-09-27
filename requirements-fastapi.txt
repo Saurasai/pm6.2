@@ -1,7 +1,7 @@
 fastapi==0.115.0
 uvicorn==0.30.6
 python-dotenv==1.0.1
-sqlite3  # Included in Python standard library, no need to list
+sqlite3  
 tweepy==4.14.0
 requests==2.32.3
 passlib[bcrypt]==1.7.4
