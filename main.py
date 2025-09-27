@@ -13,6 +13,10 @@ import requests
 from passlib.context import CryptContext
 from cryptography.fernet import Fernet
 import json
+try:
+    import imghdr
+except ImportError:
+    import imghdr2 as imghdr
 
 import os
 from dotenv import load_dotenv
@@ -358,4 +362,5 @@ async def get_user(user_id: str = Depends(get_current_user)):
     conn.close()
     if row:
         return {"email": row[0], "tier": row[1], "is_admin": bool(row[2])}
+
     raise HTTPException(404, "User not found")
