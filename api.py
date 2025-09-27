@@ -27,7 +27,7 @@ try:
     if not API_KEY:
         raise ValueError("GEMINI_API_KEY is not set in Streamlit secrets")
 
-    genai.configure(api_key=API_KEY)
+     genai.api_key = API_KEY
     logger.info("Gemini API configured successfully")
 
 except Exception as e:
@@ -87,4 +87,5 @@ async def generate_platform_drafts(platform: str, vars: dict, prompt_templates: 
         st.error(f"Error generating drafts for {platform}: {e}")
 
         return []
+
 
