@@ -1,7 +1,7 @@
 import asyncio
 import re
 import streamlit as st
-import google.generativeai as genai
+import google.genai as genai
 from dotenv import load_dotenv
 import os
 import logging
@@ -76,4 +76,5 @@ async def generate_platform_drafts(platform: str, vars: dict, prompt_templates: 
     except Exception as e:
         logger.error(f"Error generating drafts for {platform}: {e}")
         st.error(f"Error generating drafts for {platform}: {e}")
+
         return []
