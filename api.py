@@ -13,14 +13,23 @@ logger = logging.getLogger(__name__)
 nest_asyncio.apply()
 
 # Configure Gemini API
+import streamlit as st
+import logging
+
+logger = logging.getLogger(__name__)
+
 API_KEY = None
+
 try:
-    load_dotenv()
-    API_KEY = os.getenv("GEMINI_API_KEY")
+    # Access Gemini API key from Streamlit secrets
+    API_KEY = st.secrets.get("GEMINI_API_KEY")
+
     if not API_KEY:
-        raise ValueError("GEMINI_API_KEY environment variable is not set")
+        raise ValueError("GEMINI_API_KEY is not set in Streamlit secrets")
+
     genai.configure(api_key=API_KEY)
     logger.info("Gemini API configured successfully")
+
 except Exception as e:
     logger.error(f"API Key configuration error: {e}")
     st.error(f"API Key configuration error: {e}")
@@ -78,3 +87,4 @@ async def generate_platform_drafts(platform: str, vars: dict, prompt_templates: 
         st.error(f"Error generating drafts for {platform}: {e}")
 
         return []
+
